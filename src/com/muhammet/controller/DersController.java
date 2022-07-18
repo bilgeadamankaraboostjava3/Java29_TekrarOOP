@@ -2,11 +2,14 @@ package com.muhammet.controller;
 
 import java.util.Scanner;
 
+import com.muhammet.repository.DersRepository;
 import com.muhammet.repository.entity.Ders;
 import com.muhammet.utility.DataBase;
 
 public class DersController {
 
+	private DersRepository dersRepository = new DersRepository();
+	
 	private void dersEkleme() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("*************************");
@@ -18,7 +21,8 @@ public class DersController {
 		System.out.print("Ders açýklamasýný giriniz...: ");
 		String aciklama = sc.nextLine();
 		Ders ders = new Ders(ad,aciklama);
-		DataBase.dersListesi.add(ders);
+		dersRepository.save(ders);
+		//DataBase.dersListesi.add(ders);
 	}
 	private void dersListesiGoster() {
 		System.out.println("********************************");
@@ -26,7 +30,7 @@ public class DersController {
 		System.out.println("********************************");
 		System.out.println();
 		int no=1;
-		for(Ders ders: DataBase.dersListesi) {
+		for(Ders ders: dersRepository.findAll()) {
 			System.out.print("S.No: "+no+ " - ");
 			System.out.println(ders.toString());
 			no++;
@@ -53,9 +57,10 @@ public class DersController {
 		System.out.print("yeni aciklama....: ");
 		String aciklama = sc.nextLine();
 		// Bu iþlem sýra nosu yani index deðeri verilen kaydý alýr.
-		Ders ders = DataBase.dersListesi.get(sno-1);// [id:1, ad: java, aciklama: yok]
+		Ders ders = dersRepository.findAll().get(sno-1);// [id:1, ad: java, aciklama: yok]
 		ders.setAciklama(aciklama);
 		ders.setAd(ad);
+		dersRepository.update(ders);
 	}
 	public void dersIslemleri() {
 		Scanner sc = new Scanner(System.in);

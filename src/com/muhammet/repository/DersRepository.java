@@ -14,6 +14,8 @@ import com.muhammet.utility.DataBase;
  */
 public class DersRepository {
 
+	
+	
 	/**
 	 * CRUD Ýþlemlerinini yapýldýðý yer.
 	 */
@@ -32,8 +34,20 @@ public class DersRepository {
 		return ders;
 	}
 	public Ders update(Ders ders) {	
-		
-		return null;
+		/**
+		 * güncelleme iþlemlerinde id kullanýlacak
+		 * MEvcut olan kayýtlarý tek tek geziniyoruz.
+		 * bu esnada, bize güncellenmek için verilen datanýn id si ile
+		 * gezinmekte olduðumuz datalardan birisinin id si eþit ise
+		 * bilgilerini güncelliyoruz.
+		 */
+		for(Ders d: DataBase.dersListesi) {
+			if(d.getId().equals(ders.getId())) {
+				d.setAciklama(ders.getAciklama());
+				d.setAd(ders.getAd());
+			}
+		}
+		return ders;
 	}
 	public boolean delete(Ders ders) {
 		return true;

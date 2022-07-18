@@ -32,10 +32,6 @@ public class Ders {
 		return aciklama;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public void setAd(String ad) {
 		this.ad = ad;
 	}
